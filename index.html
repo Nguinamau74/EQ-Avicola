@@ -1,1 +1,546 @@
 
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#174b32">
+  <meta name="description" content="EQ Avícola: venda de ovos férteis e pintinhos em Angola.">
+  <title>EQ Avícola | Ovos Férteis e Pintinhos</title>
+  <style>
+    :root {
+      --verde: #174b32;
+      --verde-claro: #287747;
+      --amarelo: #ffd447;
+      --fundo: #f6f8f3;
+      --texto: #203126;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--fundo);
+      color: var(--texto);
+    }
+
+    header {
+      background: var(--verde);
+      color: white;
+      padding: 16px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .marca {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--amarelo);
+      color: var(--verde);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    header h1 { font-size: 21px; margin: 0; }
+    header p { margin: 5px 0 0; font-size: 12px; color: #e4f1e7; }
+
+    .carrinho-topo {
+      background: var(--amarelo);
+      color: var(--verde);
+      border: 0;
+      border-radius: 25px;
+      padding: 12px 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hero {
+      background: linear-gradient(125deg, #174b32, #317b49);
+      color: white;
+      padding: 58px 7%;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero h2 {
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.12;
+      margin: 0 0 18px;
+    }
+
+    .hero p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #edf6ed;
+      max-width: 570px;
+    }
+
+    .botao-amarelo {
+      display: inline-block;
+      background: var(--amarelo);
+      color: var(--verde);
+      padding: 14px 22px;
+      border-radius: 9px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .hero-arte {
+      text-align: center;
+      font-size: clamp(80px, 12vw, 145px);
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 28px;
+      padding: 25px;
+    }
+
+    main { padding: 42px 6%; }
+
+    .titulo-seccao { text-align: center; margin-bottom: 28px; }
+    .titulo-seccao h2 { font-size: 30px; margin-bottom: 8px; }
+    .titulo-seccao p { color: #627067; margin: 0; }
+
+    .produtos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .produto {
+      background: white;
+      border: 1px solid #e4e9e1;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 7px 24px rgba(22, 54, 31, .06);
+    }
+
+    .produto-imagem {
+      min-height: 190px;
+      display: grid;
+      place-items: center;
+      font-size: 94px;
+      background: #edf4e5;
+    }
+
+    .produto:nth-child(2) .produto-imagem { background: #fff3ce; }
+
+    .produto-conteudo { padding: 22px; }
+    .produto h3 { margin: 0 0 9px; font-size: 21px; }
+    .produto p { color: #667268; line-height: 1.5; min-height: 45px; }
+
+    .preco {
+      color: var(--verde);
+      font-size: 25px;
+      font-weight: 800;
+      margin: 18px 0;
+    }
+
+    button { font-family: inherit; }
+
+    .botao-verde {
+      width: 100%;
+      background: var(--verde);
+      color: white;
+      padding: 13px;
+      border: 0;
+      border-radius: 9px;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .botao-verde:hover { background: var(--verde-claro); }
+
+    .vantagens {
+      max-width: 920px;
+      margin: 36px auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .vantagem {
+      background: white;
+      padding: 20px 12px;
+      text-align: center;
+      border-radius: 12px;
+      border: 1px solid #e4e9e1;
+    }
+
+    .vantagem span { display: block; font-size: 28px; margin-bottom: 8px; }
+    .vantagem strong { font-size: 14px; }
+
+    #zona-carrinho {
+      display: none;
+      max-width: 920px;
+      margin: 36px auto 0;
+      background: white;
+      border: 1px solid #e0e7dd;
+      border-radius: 16px;
+      padding: 22px;
+    }
+
+    #zona-carrinho h2 { margin-top: 0; }
+    .linha-carrinho {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #e9ede6;
+    }
+
+    .linha-carrinho small { display: block; color: #667268; margin-top: 5px; }
+
+    .quantidade {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .quantidade button {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #d5dfd3;
+      border-radius: 8px;
+      background: #f6f8f3;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .remover {
+      border: 0;
+      background: transparent;
+      color: #b3261e;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    .total {
+      font-size: 24px;
+      font-weight: 800;
+      text-align: right;
+      margin: 22px 0;
+    }
+
+    .campo { margin: 15px 0; }
+    .campo label { display: block; margin-bottom: 7px; font-weight: bold; }
+
+    .campo input, .campo textarea {
+      width: 100%;
+      border: 1px solid #ccd7cb;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 16px;
+      font-family: inherit;
+    }
+
+    .campo textarea { min-height: 75px; resize: vertical; }
+
+    .botao-whatsapp {
+      display: block;
+      width: 100%;
+      background: #168447;
+      color: white;
+      border: 0;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .aviso { font-size: 12px; color: #68736a; line-height: 1.5; }
+
+    footer {
+      background: #103a26;
+      color: white;
+      text-align: center;
+      padding: 27px 15px;
+      font-size: 14px;
+    }
+
+    footer p { margin: 6px; }
+
+    @media (max-width: 650px) {
+      .hero { grid-template-columns: 1fr; padding: 40px 6%; }
+      .hero-arte { padding: 12px; font-size: 85px; }
+      .produtos { grid-template-columns: 1fr; }
+      .produto-imagem { min-height: 150px; }
+      .vantagens { grid-template-columns: 1fr; }
+      main { padding: 32px 5%; }
+      header { padding: 14px 5%; }
+      .linha-carrinho { align-items: flex-start; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="marca">
+    <div class="logo">EQ</div>
+    <div>
+      <h1>EQ AVÍCOLA</h1>
+      <p>Ovos férteis e pintinhos</p>
+    </div>
+  </div>
+  <button class="carrinho-topo" onclick="mostrarCarrinho()">
+    🛒 Carrinho (<span id="contador">0</span>)
+  </button>
+</header>
+
+<section class="hero">
+  <div>
+    <h2>O começo de uma criação de sucesso! 🐣</h2>
+    <p>Encontra ovos férteis e pintinhos para iniciar ou desenvolver a tua criação avícola. Faz a tua encomenda de forma simples e rápida.</p>
+    <a class="botao-amarelo" href="#produtos">Ver produtos</a>
+  </div>
+  <div class="hero-arte" aria-label="Pintinhos e ovos">🐣🥚</div>
+</section>
+
+<main>
+  <section id="produtos">
+    <div class="titulo-seccao">
+      <h2>Os nossos produtos</h2>
+      <p>Escolhe os produtos e adiciona-os ao carrinho.</p>
+    </div>
+
+    <div class="produtos">
+      <article class="produto">
+        <div class="produto-imagem" role="img" aria-label="Ovos férteis">🥚🐣</div>
+        <div class="produto-conteudo">
+          <h3>Ovos férteis</h3>
+          <p>Ovos destinados à incubação e ao nascimento de pintinhos.</p>
+          <div class="preco">500 Kz <span style="font-size:13px;font-weight:normal">/ unidade</span></div>
+          <button class="botao-verde" onclick="adicionar('ovos')">+ Adicionar ao carrinho</button>
+        </div>
+      </article>
+
+      <article class="produto">
+        <div class="produto-imagem" role="img" aria-label="Pintinhos amarelos">🐥🐥</div>
+        <div class="produto-conteudo">
+          <h3>Pintinhos</h3>
+          <p>Pintinhos para quem deseja começar ou aumentar a sua criação.</p>
+          <div class="preco">1.500 Kz <span style="font-size:13px;font-weight:normal">/ unidade</span></div>
+          <button class="botao-verde" onclick="adicionar('pintinhos')">+ Adicionar ao carrinho</button>
+        </div>
+      </article>
+    </div>
+
+    <div class="vantagens">
+      <div class="vantagem"><span>🛒</span><strong>Carrinho simples</strong></div>
+      <div class="vantagem"><span>📱</span><strong>Encomenda pelo WhatsApp</strong></div>
+      <div class="vantagem"><span>🐣</span><strong>Foco na avicultura</strong></div>
+    </div>
+  </section>
+
+  <section id="zona-carrinho">
+    <h2>🛒 A tua encomenda</h2>
+    <div id="itens-carrinho"></div>
+    <div class="total">Total: <span id="total">0 Kz</span></div>
+
+    <div class="campo">
+      <label for="nome">O teu nome *</label>
+      <input id="nome" type="text" placeholder="Escreve o teu nome" autocomplete="name">
+    </div>
+
+    <div class="campo">
+      <label for="telefone">O teu contacto</label>
+      <input id="telefone" type="tel" placeholder="Ex.: 923 000 000" autocomplete="tel">
+    </div>
+
+    <div class="campo">
+      <label for="entrega">Local de entrega ou levantamento *</label>
+      <input id="entrega" type="text" placeholder="Indica a localidade" autocomplete="street-address">
+    </div>
+
+    <div class="campo">
+      <label for="observacoes">Observações (opcional)</label>
+      <textarea id="observacoes" placeholder="Indica detalhes adicionais..."></textarea>
+    </div>
+
+    <button class="botao-whatsapp" onclick="enviarWhatsApp()">
+      Enviar encomenda pelo WhatsApp
+    </button>
+    <p class="aviso">O pedido será aberto no WhatsApp para confirmares e enviares. O envio da mensagem não representa pagamento nem confirmação automática da encomenda.</p>
+  </section>
+</main>
+
+<footer>
+  <p><strong>EQ AVÍCOLA</strong></p>
+  <p>Ovos férteis e pintinhos para a tua criação.</p>
+  <p>© <span id="ano"></span> EQ Avícola</p>
+</footer>
+
+<script>
+  const WHATSAPP = "244927664727";
+
+  const produtos = {
+    ovos: { nome: "Ovos férteis", preco: 500 },
+    pintinhos: { nome: "Pintinhos", preco: 1500 }
+  };
+
+  const carrinho = {};
+
+  function formatarKz(valor) {
+    return valor.toLocaleString("pt-PT") + " Kz";
+  }
+
+  function adicionar(id) {
+    carrinho[id] = (carrinho[id] || 0) + 1;
+    atualizarCarrinho();
+    document.getElementById("zona-carrinho").style.display = "block";
+    document.getElementById("zona-carrinho").scrollIntoView({
+      behavior: "smooth", block: "start"
+    });
+  }
+
+  function alterarQuantidade(id, delta) {
+    carrinho[id] = (carrinho[id] || 0) + delta;
+    if (carrinho[id] <= 0) delete carrinho[id];
+    atualizarCarrinho();
+  }
+
+  function remover(id) {
+    delete carrinho[id];
+    atualizarCarrinho();
+  }
+
+  function mostrarCarrinho() {
+    document.getElementById("zona-carrinho").style.display = "block";
+    document.getElementById("zona-carrinho").scrollIntoView({
+      behavior: "smooth", block: "start"
+    });
+    atualizarCarrinho();
+  }
+
+  function atualizarCarrinho() {
+    const container = document.getElementById("itens-carrinho");
+    container.innerHTML = "";
+    let quantidadeTotal = 0;
+    let total = 0;
+
+    Object.keys(carrinho).forEach(id => {
+      const quantidade = carrinho[id];
+      const produto = produtos[id];
+      const subtotal = quantidade * produto.preco;
+
+      quantidadeTotal += quantidade;
+      total += subtotal;
+
+      const linha = document.createElement("div");
+      linha.className = "linha-carrinho";
+
+      const info = document.createElement("div");
+      const nome = document.createElement("strong");
+      nome.textContent = produto.nome;
+      const detalhe = document.createElement("small");
+      detalhe.textContent = formatarKz(produto.preco) + " / unidade";
+      const removerBtn = document.createElement("button");
+      removerBtn.className = "remover";
+      removerBtn.textContent = "Remover";
+      removerBtn.onclick = () => remover(id);
+      info.append(nome, detalhe, removerBtn);
+
+      const controlo = document.createElement("div");
+      controlo.className = "quantidade";
+      const menos = document.createElement("button");
+      menos.textContent = "−";
+      menos.setAttribute("aria-label", "Diminuir quantidade");
+      menos.onclick = () => alterarQuantidade(id, -1);
+      const numero = document.createElement("span");
+      numero.textContent = quantidade;
+      const mais = document.createElement("button");
+      mais.textContent = "+";
+      mais.setAttribute("aria-label", "Aumentar quantidade");
+      mais.onclick = () => alterarQuantidade(id, 1);
+      controlo.append(menos, numero, mais);
+
+      const subtotalEl = document.createElement("strong");
+      subtotalEl.textContent = formatarKz(subtotal);
+
+      linha.append(info, controlo, subtotalEl);
+      container.appendChild(linha);
+    });
+
+    document.getElementById("contador").textContent = quantidadeTotal;
+    document.getElementById("total").textContent = formatarKz(total);
+
+    if (quantidadeTotal === 0) {
+      container.textContent = "O carrinho está vazio. Adiciona um produto para continuar.";
+    }
+  }
+
+  function enviarWhatsApp() {
+    const ids = Object.keys(carrinho);
+
+    if (ids.length === 0) {
+      alert("Adiciona pelo menos um produto ao carrinho.");
+      return;
+    }
+
+    const nome = document.getElementById("nome").value.trim();
+    const telefone = document.getElementById("telefone").value.trim();
+    const entrega = document.getElementById("entrega").value.trim();
+    const observacoes = document.getElementById("observacoes").value.trim();
+
+    if (!nome || !entrega) {
+      alert("Preenche o teu nome e o local de entrega ou levantamento.");
+      return;
+    }
+
+    let total = 0;
+    let mensagem = "Olá, EQ Avícola! Quero fazer esta encomenda:\n\n";
+    mensagem += "Cliente: " + nome + "\n";
+
+    if (telefone) mensagem += "Contacto: " + telefone + "\n";
+
+    mensagem += "Local de entrega/levantamento: " + entrega + "\n\n";
+    mensagem += "PRODUTOS:\n";
+
+    ids.forEach(id => {
+      const produto = produtos[id];
+      const quantidade = carrinho[id];
+      const subtotal = produto.preco * quantidade;
+      total += subtotal;
+      mensagem += "- " + produto.nome + " x " + quantidade +
+        " = " + formatarKz(subtotal) + "\n";
+    });
+
+    mensagem += "\nTOTAL DOS PRODUTOS: " + formatarKz(total) + "\n";
+
+    if (observacoes) mensagem += "\nObservações: " + observacoes + "\n";
+
+    mensagem += "\nPor favor, confirmem a disponibilidade e as condições de entrega. Obrigado!";
+
+    const url = "https://wa.me/" + WHATSAPP +
+      "?text=" + encodeURIComponent(mensagem);
+
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  document.getElementById("ano").textContent = new Date().getFullYear();
+  atualizarCarrinho();
+</script>
+</body>
+</html>
+
